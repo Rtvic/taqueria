@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Café de Altura — Café Artesanal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:#3E2723;background:#FFF8E1;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{text-decoration:none;color:inherit;transition:all .35s ease}
+:root{--coffee:#4E342E;--coffee-light:#6D4C41;--cream:#FFF8E1;--terracotta:#BF360C;--green:#33691E;--gold:#FF8F00;--dark:#1a1a1a}
+::selection{background:var(--coffee);color:#fff}
+h1,h2,h3{font-family:'Playfair Display',serif;font-weight:700;line-height:1.2}
+h1{font-size:clamp(2.8rem,5vw,4.5rem)}
+h2{font-size:clamp(2rem,3.5vw,2.8rem);margin-bottom:.8rem}
+p{line-height:1.8;color:#6D4C41}
+.section{padding:5rem 1.5rem;max-width:1200px;margin:0 auto}
+.section--cream{background:var(--cream)}
+.section--dark{background:var(--coffee);color:#fff}
+.section--dark p{color:rgba(255,255,255,.65)}
+.section-header{text-align:center;margin-bottom:3.5rem}
+.section-tag{font-style:italic;color:var(--terracotta);font-size:1.05rem;display:block;margin-bottom:.5rem}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 2rem;border-radius:50px;font-size:.88rem;font-weight:600;border:none;cursor:pointer;transition:all .35s ease}
+.btn--primary{background:var(--coffee);color:#fff;box-shadow:0 4px 15px rgba(78,52,46,.3)}
+.btn--primary:hover{background:var(--coffee-light);transform:translateY(-2px);box-shadow:0 8px 25px rgba(78,52,46,.35)}
+.btn--outline{background:transparent;border:2px solid var(--coffee);color:var(--coffee)}
+.btn--outline:hover{background:var(--coffee);color:#fff;transform:translateY(-2px)}
+
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.1rem 1.5rem;transition:all .35s ease}
+.navbar.scrolled{background:rgba(78,52,46,.97);backdrop-filter:blur(12px);padding:.65rem 1.5rem}
+.navbar .container{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.navbar-brand{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#fff;display:flex;align-items:center;gap:.6rem}
+.navbar-brand i{color:var(--gold)}
+.navbar-links{display:flex;gap:2rem}
+.navbar-links a{color:rgba(255,255,255,.8);font-size:.85rem;font-weight:500;position:relative}
+.navbar-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:2px;background:var(--gold);transition:all .35s ease}
+.navbar-links a:hover,.navbar-links a.active{color:#fff}
+.navbar-links a:hover::after,.navbar-links a.active::after{width:100%}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001;padding:.5rem}
+.hamburger span{display:block;width:26px;height:2.5px;background:#fff;border-radius:2px;transition:all .35s ease}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+@media(max-width:768px){
+  .navbar-links{position:fixed;inset:0;background:rgba(78,52,46,.98);flex-direction:column;justify-content:center;gap:2rem;opacity:0;pointer-events:none;transition:opacity .4s}
+  .navbar-links.open{opacity:1;pointer-events:all}
+  .navbar-links a{font-size:1.1rem}
+  .hamburger{display:flex}
+}
+
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920&q=80') center/cover no-repeat;transform:scale(1.05)}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(62,39,35,.92)0%,rgba(78,52,46,.6)50%,rgba(0,0,0,.5)100%);z-index:1}
+.hero-content{position:relative;z-index:2;text-align:center;padding:2rem 1.5rem;max-width:750px}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.08);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);padding:.5rem 1.5rem;border-radius:50px;color:var(--gold);font-size:.8rem;letter-spacing:1px;margin-bottom:2rem}
+.hero h1{color:#fff;margin-bottom:1.2rem}
+.hero h1 span{display:block;font-size:.5em;font-style:italic;font-weight:400;color:var(--gold)}
+.hero p{color:rgba(255,255,255,.7);font-size:1.05rem;max-width:500px;margin:0 auto 2.5rem}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.story-image{border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(78,52,46,.15)}
+.story-image img{width:100%;height:450px;object-fit:cover;transition:all .5s ease}
+.story-image:hover img{transform:scale(1.03)}
+.story-text p{margin-bottom:1rem}
+
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.8rem}
+.menu-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .35s ease}
+.menu-card:hover{transform:translateY(-6px);box-shadow:0 12px 35px rgba(78,52,46,.12)}
+.menu-card-image{height:200px;overflow:hidden}
+.menu-card-image img{width:100%;height:100%;object-fit:cover;transition:all .5s ease}
+.menu-card:hover .menu-card-image img{transform:scale(1.08)}
+.menu-card-body{padding:1.3rem 1.5rem}
+.menu-card-body h3{font-size:1.1rem;margin-bottom:.3rem}
+.menu-card-body .desc{font-size:.85rem;color:#8D6E63;font-style:italic;margin-bottom:1rem}
+.menu-card-footer{display:flex;align-items:center;justify-content:space-between}
+.price{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--terracotta)}
+
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.gallery-item{position:relative;border-radius:12px;overflow:hidden;cursor:pointer;aspect-ratio:1}
+.gallery-item:first-child{grid-row:span 2;grid-column:span 2;aspect-ratio:2/1}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:all .5s ease}
+.gallery-item:hover img{transform:scale(1.06)}
+.gallery-overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;opacity:0;transition:all .35s ease}
+.gallery-item:hover .gallery-overlay{opacity:1}
+.gallery-overlay .icon{width:44px;height:44px;border:2px solid rgba(255,255,255,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;transform:scale(.8);transition:all .35s ease}
+.gallery-item:hover .gallery-overlay .icon{transform:scale(1)}
+
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.info-card{text-align:center;padding:2.5rem 1.5rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:16px;transition:all .35s ease}
+.info-card:hover{background:rgba(255,255,255,.07);transform:translateY(-4px)}
+.info-card .icon{width:56px;height:56px;border-radius:50%;background:rgba(196,140,70,.15);display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:var(--gold);margin:0 auto 1rem}
+.info-card h4{color:#fff;margin-bottom:.4rem}
+.info-card p{font-size:.9rem;margin:0}
+
+.contact-form{max-width:550px;margin:0 auto;background:#fff;padding:2.5rem;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,.06)}
+.form-group{margin-bottom:1.2rem}
+.form-group label{display:block;font-size:.83rem;font-weight:500;margin-bottom:.4rem;color:var(--coffee)}
+.form-control{width:100%;padding:.8rem 1rem;border:2px solid #EFEBE9;border-radius:10px;font-size:.9rem;transition:all .3s ease}
+.form-control:focus{outline:none;border-color:var(--coffee);box-shadow:0 0 0 4px rgba(78,52,46,.08)}
+
+.footer{background:var(--coffee);color:rgba(255,255,255,.6);padding:3.5rem 1.5rem 0}
+.footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.footer-brand{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#fff;display:block;margin-bottom:.8rem}
+.footer-about{font-size:.85rem;line-height:1.8;margin-bottom:1.2rem}
+.footer-social{display:flex;gap:.7rem}
+.footer-social a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);transition:all .35s ease}
+.footer-social a:hover{background:var(--gold);color:var(--dark)}
+.footer h4{font-family:'Inter',sans-serif;font-size:.82rem;font-weight:600;color:#fff;margin-bottom:1rem;letter-spacing:1px}
+.footer-links li{margin-bottom:.5rem}
+.footer-links a{font-size:.85rem;color:rgba(255,255,255,.4)}
+.footer-links a:hover{color:var(--gold);padding-left:3px}
+.footer-bottom{max-width:1200px;margin:0 auto;padding:1.5rem 0;display:flex;justify-content:space-between;font-size:.78rem}
+
+[data-aos]{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+[data-aos].aos-animate{opacity:1;transform:translateY(0)}
+[data-aos-delay="100"]{transition-delay:.1s}
+[data-aos-delay="200"]{transition-delay:.2s}
+[data-aos-delay="300"]{transition-delay:.3s}
+[data-aos-delay="400"]{transition-delay:.4s}
+
+.whatsapp-float{position:fixed;bottom:1.5rem;right:1.5rem;z-index:999;width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.6rem;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:all .35s ease}
+.whatsapp-float:hover{transform:scale(1.1);color:#fff}
+
+@media(max-width:900px){.story-grid,.info-grid{grid-template-columns:1fr;gap:2.5rem}.story-image img{height:300px}.footer-grid{grid-template-columns:1fr 1fr}.gallery-item:first-child{grid-row:span 1;aspect-ratio:16/9}}
+@media(max-width:768px){
+  .section{padding:3.5rem 1.2rem}
+  .menu-grid{grid-template-columns:1fr 1fr}
+  .gallery-grid{grid-template-columns:1fr 1fr}.gallery-item:first-child{grid-column:span 2}
+  .info-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}.footer-bottom{flex-direction:column;text-align:center;gap:.5rem}
+}
+@media(max-width:480px){.menu-grid{grid-template-columns:1fr}.gallery-grid{grid-template-columns:1fr}.gallery-item:first-child{grid-column:span 1}}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="#" class="navbar-brand"><i class="fas fa-mug-hot"></i> Café de Altura</a>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+    <div class="navbar-links">
+      <a href="#story">Nuestra Historia</a>
+      <a href="#menu">Menú</a>
+      <a href="#gallery">Galería</a>
+      <a href="#contact" class="btn btn--outline" style="border-color:var(--gold);color:var(--gold);padding:.5rem 1.3rem;font-size:.8rem;border-color:rgba(255,255,255,.3);color:#fff">Contacto</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge" data-aos="fade-down"><i class="fas fa-seedling"></i> 100% Artesanal</div>
+    <h1 data-aos="fade-up" data-aos-delay="100">Café de Altura<br><span>El verdadero sabor del café mexicano</span></h1>
+    <p data-aos="fade-up" data-aos-delay="200">Granos de origen, tostado artesanal y una taza que despierta tus sentidos.</p>
+    <div class="hero-actions" data-aos="fade-up" data-aos-delay="300">
+      <a href="#menu" class="btn btn--primary"><i class="fas fa-coffee"></i> Ver Menú</a>
+      <a href="#contact" class="btn btn--outline" style="border-color:rgba(255,255,255,.4);color:#fff"><i class="fas fa-map-pin"></i> Visítanos</a>
+    </div>
+  </div>
+</header>
+
+<section class="section section--cream" id="story">
+  <div class="story-grid">
+    <div class="story-image" data-aos="fade-right">
+      <img src="https://images.unsplash.com/photo-1559496417-e7f25cb247f3?w=800&q=80" alt="Café de altura fresco" loading="lazy">
+    </div>
+    <div class="story-text" data-aos="fade-left">
+      <span class="section-tag">Nuestro origen</span>
+      <h2>Directo de las montañas a tu taza</h2>
+      <p>Cada grano es seleccionado a mano en las fincas cafetaleras de Chiapas y Oaxaca. Trabajamos directamente con productores locales que cultivan café de sombra, respetando la tierra y las tradiciones.</p>
+      <p>Tostamos en pequeños lotes para preservar los aromas y sabores únicos de cada origen. Desde la primera taza, notarás la diferencia.</p>
+      <a href="#menu" class="btn btn--outline"><i class="fas fa-arrow-right"></i> Descubre nuestro café</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="menu">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">Nuestro menú</span>
+    <h2>Hecho con pasión, servido con amor</h2>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-card" data-aos="zoom-in">
+      <div class="menu-card-image"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80" alt="Espresso" loading="lazy"></div>
+      <div class="menu-card-body"><h3>Espresso</h3><p class="desc">Intenso, cuerpo completo y crema perfecta</p><div class="menu-card-footer"><span class="price">$45</span></div></div>
+    </div>
+    <div class="menu-card" data-aos="zoom-in" data-aos-delay="100">
+      <div class="menu-card-image"><img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&q=80" alt="Latte art" loading="lazy"></div>
+      <div class="menu-card-body"><h3>Latte Artesanal</h3><p class="desc">Espresso doble con leche vaporizada y arte</p><div class="menu-card-footer"><span class="price">$62</span></div></div>
+    </div>
+    <div class="menu-card" data-aos="zoom-in" data-aos-delay="200">
+      <div class="menu-card-image"><img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80" alt="Cold brew" loading="lazy"></div>
+      <div class="menu-card-body"><h3>Cold Brew</h3><p class="desc">Extracción en frío 24 hrs, suave y refrescante</p><div class="menu-card-footer"><span class="price">$58</span></div></div>
+    </div>
+    <div class="menu-card" data-aos="zoom-in" data-aos-delay="300">
+      <div class="menu-card-image"><img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=600&q=80" alt="Capuchino" loading="lazy"></div>
+      <div class="menu-card-body"><h3>Capuchino Clásico</h3><p class="desc">Espresso, leche cremosa y canela espolvoreada</p><div class="menu-card-footer"><span class="price">$55</span></div></div>
+    </div>
+    <div class="menu-card" data-aos="zoom-in" data-aos-delay="400">
+      <div class="menu-card-image"><img src="https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=600&q=80" alt="Pastel de café" loading="lazy"></div>
+      <div class="menu-card-body"><h3>Pastel de Café</h3><p class="desc">Bizcocho de café con nuez y frosting de moka</p><div class="menu-card-footer"><span class="price">$48</span></div></div>
+    </div>
+    <div class="menu-card" data-aos="zoom-in" data-aos-delay="500">
+      <div class="menu-card-image"><img src="https://images.unsplash.com/photo-1604881991720-f91add269bed?w=600&q=80" alt="Chai latte" loading="lazy"></div>
+      <div class="menu-card-body"><h3>Chai Latte</h3><p class="desc">Especias indias, miel de agave y leche cremosa</p><div class="menu-card-footer"><span class="price">$52</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--cream" id="gallery">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">Galería</span>
+    <h2>El arte del café</h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item" data-aos="zoom-in"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80" alt="Cafetería" loading="lazy"><div class="gallery-overlay"><span class="icon"><i class="fas fa-expand"></i></span></div></div>
+    <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100"><img src="https://images.unsplash.com/photo-1559496417-e7f25cb247f3?w=600&q=80" alt="Granos de café" loading="lazy"><div class="gallery-overlay"><span class="icon"><i class="fas fa-expand"></i></span></div></div>
+    <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200"><img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefda?w=600&q=80" alt="Barista" loading="lazy"><div class="gallery-overlay"><span class="icon"><i class="fas fa-expand"></i></span></div></div>
+    <div class="gallery-item" data-aos="zoom-in" data-aos-delay="300"><img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=80" alt="Interior acogedor" loading="lazy"><div class="gallery-overlay"><span class="icon"><i class="fas fa-expand"></i></span></div></div>
+    <div class="gallery-item" data-aos="zoom-in" data-aos-delay="400"><img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&q=80" alt="Mañana de café" loading="lazy"><div class="gallery-overlay"><span class="icon"><i class="fas fa-expand"></i></span></div></div>
+  </div>
+</section>
+
+<section class="section section--dark" id="location">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag" style="color:var(--gold)">Visítanos</span>
+    <h2 style="color:#fff">Encuentra tu taza perfecta</h2>
+  </div>
+  <div class="info-grid">
+    <div class="info-card" data-aos="fade-up"><div class="icon"><i class="fas fa-map-pin"></i></div><h4>Ubicación</h4><p>Av. Ámsterdam 123, Col. Condesa, CDMX</p></div>
+    <div class="info-card" data-aos="fade-up" data-aos-delay="100"><div class="icon"><i class="fas fa-clock"></i></div><h4>Horario</h4><p>Lun — Sáb: 7:00 am — 10:00 pm<br>Dom: 8:00 am — 8:00 pm</p></div>
+    <div class="info-card" data-aos="fade-up" data-aos-delay="200"><div class="icon"><i class="fas fa-phone-alt"></i></div><h4>Contacto</h4><p>+52 921 487 5347<br>hola@cafedealtura.mx</p></div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">Contacto</span>
+    <h2>¿Listo para un buen café?</h2>
+  </div>
+  <form class="contact-form" action="https://formsubmit.co/hola@taqueriaelcompadre.mx" method="POST" data-aos="fade-up">
+    <input type="hidden" name="_subject" value="Nuevo mensaje — Café de Altura">
+    <input type="hidden" name="_captcha" value="false">
+    <div class="form-group"><label>Nombre</label><input type="text" class="form-control" name="nombre" placeholder="Tu nombre" required></div>
+    <div class="form-group"><label>Correo</label><input type="email" class="form-control" name="email" placeholder="tu@correo.com" required></div>
+    <div class="form-group"><label>Mensaje</label><textarea class="form-control" name="mensaje" placeholder="¿Qué tipo de café buscas?" required></textarea></div>
+    <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center"><i class="fas fa-paper-plane"></i> Enviar mensaje</button>
+  </form>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div><a href="#" class="footer-brand"><i class="fas fa-mug-hot" style="color:var(--gold);margin-right:.5rem"></i>Café de Altura</a><p class="footer-about">Café artesanal de origen mexicano. Tostado en lotes pequeños, con amor y tradición.</p><div class="footer-social"><a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></div></div>
+    <div><h4>Menú</h4><ul class="footer-links"><li><a href="#">Bebidas</a></li><li><a href="#">Postres</a></li><li><a href="#">Granos</a></li></ul></div>
+    <div><h4>Contacto</h4><ul class="footer-links"><li><a href="tel:+529214875347">+52 921 487 5347</a></li><li><a href="https://wa.me/529214875347" target="_blank">WhatsApp</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>&copy; 2026 Café de Altura</span><span>Hecho con <i class="fas fa-heart" style="color:var(--terracotta)"></i> en México</span></div>
+</footer>
+
+<a href="https://wa.me/529214875347" target="_blank" class="whatsapp-float" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+<div class="lightbox" style="position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.95);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s" id="lightbox">
+  <button style="position:absolute;top:2rem;right:2rem;width:44px;height:44px;border:none;background:rgba(255,255,255,.1);border-radius:50%;color:#fff;font-size:1.5rem;cursor:pointer" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+  <img class="lightbox-img" src="" alt="" style="max-width:90vw;max-height:85vh;border-radius:8px;transform:scale(.9);transition:transform .4s">
+</div>
+
+<script>
+const navbar=document.querySelector('.navbar');
+window.addEventListener('scroll',()=>{window.scrollY>60?navbar.classList.add('scrolled'):navbar.classList.remove('scrolled')},{passive:true});
+const hamburger=document.querySelector('.hamburger'),navLinks=document.querySelector('.navbar-links');
+hamburger?.addEventListener('click',()=>{
+  hamburger.classList.toggle('active');navLinks.classList.toggle('open');
+  document.body.style.overflow=navLinks.classList.contains('open')?'hidden':'';
+});
+navLinks?.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{
+  hamburger?.classList.remove('active');navLinks?.classList.remove('open');
+  document.body.style.overflow='';
+}));
+const observer=new IntersectionObserver(e=>{e.forEach(entry=>{
+  if(entry.isIntersecting){
+    const delay=entry.target.getAttribute('data-aos-delay')||0;
+    setTimeout(()=>entry.target.classList.add('aos-animate'),parseInt(delay));
+    observer.unobserve(entry.target);
+  }
+})},{threshold:.1});
+document.querySelectorAll('[data-aos]').forEach(el=>observer.observe(el));
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){
+  const t=document.querySelector(this.getAttribute('href'));
+  if(t){e.preventDefault();const o=navbar?.offsetHeight||80;window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-o,behavior:'smooth'})}
+})});
+const lightbox=document.getElementById('lightbox'),lightboxImg=lightbox?.querySelector('.lightbox-img');
+document.querySelectorAll('.gallery-item').forEach(item=>{item.addEventListener('click',()=>{
+  const img=item.querySelector('img');
+  if(img&&lightbox){lightboxImg.src=img.src;lightboxImg.alt=img.alt;lightbox.style.opacity='1';lightbox.style.pointerEvents='all';document.body.style.overflow='hidden';setTimeout(()=>lightboxImg.style.transform='scale(1)',50)}
+})});
+function closeLightbox(){if(lightbox){lightbox.style.opacity='0';lightbox.style.pointerEvents='none';lightboxImg.style.transform='scale(.9)';document.body.style.overflow=''}}
+lightbox?.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
+</script>
+</body>
+</html>
