@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contacto — Taquería El Compadre</title>
-  <meta name="description" content="Ponte en contacto con Taquería El Compadre. Estamos en Av. Revolución 1234, Col. Centro, CDMX. Tel: +52 55 1234 5678.">
+  <meta name="description" content="Ponte en contacto con Taquería El Compadre. Estamos en Av. Revolución 1234, Col. Centro, CDMX. Tel: +52 921 487 5347.">
   <meta name="robots" content="index, follow">
   <meta property="og:title" content="Contacto — Taquería El Compadre">
   <meta property="og:description" content="Visítanos o escríbenos. Te esperamos.">
@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="menu.html">Menú</a>
         <a href="index.html#gallery">Galería</a>
         <a href="contacto.php" class="active">Contacto</a>
-        <a href="tel:+525512345678" class="navbar-cta"><i class="fas fa-phone-alt"></i> Llama Ahora</a>
+        <a href="tel:+529214875347" class="navbar-cta"><i class="fas fa-phone-alt"></i> Llama Ahora</a>
       </div>
     </div>
   </nav>
@@ -151,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <div class="contact-info-icon"><i class="fas fa-phone-alt"></i></div>
               <div>
                 <h4>Teléfono</h4>
-                <p>+52 55 1234 5678</p>
+                <p>+52 921 487 5347</p>
               </div>
             </div>
             <div class="contact-info-item">
@@ -169,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               </div>
             </div>
             <div style="margin-top:1rem;">
-              <a href="https://wa.me/525512345678" target="_blank" rel="noopener" class="btn btn--gold"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="https://wa.me/529214875347" target="_blank" rel="noopener" class="btn btn--gold"><i class="fab fa-whatsapp"></i> WhatsApp</a>
             </div>
           </div>
 
@@ -198,7 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="form-group">
               <label for="telefono">Teléfono (opcional)</label>
               <input type="tel" class="form-control" id="telefono" name="telefono"
-                     placeholder="+52 55 1234 5678"
+                     placeholder="+52 921 487 5347"
                      value="<?php echo htmlspecialchars($telefono); ?>">
             </div>
             <div class="form-group">
@@ -269,9 +269,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div>
         <h4>Contacto</h4>
         <ul class="footer-links">
-          <li><a href="tel:+525512345678">+52 55 1234 5678</a></li>
+          <li><a href="tel:+529214875347">+52 921 487 5347</a></li>
           <li><a href="mailto:hola@taqueriaelcompadre.mx">hola@taqueriaelcompadre.mx</a></li>
-          <li><a href="https://wa.me/525512345678" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="https://wa.me/529214875347" target="_blank" rel="noopener">WhatsApp</a></li>
         </ul>
       </div>
     </div>
@@ -284,7 +284,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <!-- ============================================================
        WHATSAPP FLOAT
        ============================================================ -->
-  <a href="https://wa.me/525512345678?text=¡Hola!%20Quiero%20más%20información" target="_blank" rel="noopener" class="whatsapp-float" aria-label="WhatsApp">
+  <a href="https://wa.me/529214875347?text=¡Hola!%20Quiero%20más%20información" target="_blank" rel="noopener" class="whatsapp-float" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
 
